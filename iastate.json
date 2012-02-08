@@ -1,4 +1,10 @@
 {
+    "semesterStart": {
+        "month": "1",
+        "day": "9",
+        "year": "2012"
+    },
+
     "semesterEnd": {
         "month": "5",
         "day": "4",

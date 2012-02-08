@@ -20,12 +20,22 @@ body {
     text-align: center;
     text-shadow: 1px 1px 0px #733;
 }
+
+h1 {
+    margin-top: 50px;
+    font-size: 70px;
+    display: none;
+}
+
 #semEndDiv {
-    margin-top: 100px;
+    margin-top: 70px;
     font-size: 50px;
 }
 #daysTilSemEnd {
     font-size: 100px;
+}
+#semTotal {
+    font-size: 20px;
 }
 
 #sprBrkDiv {
@@ -34,25 +44,76 @@ body {
 #daysTilSprBrk {
     font-size: 80px;
 }
+
+.schoolDaysSect {
+    font-size: 30px;
+}
+.schoolDays {
+    font-size: 50px;
+}
+
+.percCompleteSect {
+    font-size: 30px;
+}
+.percComplete{
+    font-size: 50px;
+}
 </style>
 <?php
 date_default_timezone_set("America/Chicago");
 
-function daysTil($data)
+function dataToTime($data)
 {
-    $today = time();
-    $future = mktime(0, 0, 0, $data['month'], $data['day'], $data['year']);
+    return mktime(0, 0, 0, $data['month'], $data['day'], $data['year']);
+}
 
-    $secsTil = $future-$today;
-    if ($secsTil < 0)
-        $daysTil = 0;
+function daysTilTime($future)
+{
+    return daysInInterval(time(), $future);
+}
+
+function daysInInterval($start, $end)
+{
+    $secs = $end-$start;
+    if ($secs < 0)
+        $days = 0;
     else
     {
-        $secsTil += 60*60*24; # need to count today
-        $daysTil = floor($secsTil/60/60/24);
+        $secs += 60*60*24; # need to count today
+        $days = floor($secs/60/60/24);
     }
 
-    return $daysTil;
+    return $days;
+}
+
+function daysInDataInterval($dataStart, $dataEnd)
+{
+    return daysInInterval(dataToTime($dataStart), dataToTime($dataEnd));
+}
+
+function daysTil($data)
+{
+    $future = dataToTime($data);
+    return daysTilTime($future);
+}
+
+function weekdaysTil($data)
+{
+    $future = dataToTime($data);
+    $days = 0;
+    $t = time();
+
+    while ($t < $future)
+    {
+        // If the day is a weekday... (Sun: 0, Sat: 6)
+        if (date('w', $t) % 6 != 0) {
+            $days++;
+        }
+
+        $t = strtotime('+1 day', $t);
+    }
+
+    return $days;
 }
 
 function isAre($n)
@@ -76,17 +137,40 @@ $semEndPlural = pluralDays($daysTilSemEnd);
 $sprBrkIsAre = isAre($daysTilSprBrk);
 $sprBrkPlural = pluralDays($daysTilSprBrk);
 
-echo <<<EOL
-<div id="semEndDiv">
-There $semEndIsAre <span id="daysTilSemEnd" >$daysTilSemEnd</span> $semEndPlural left in the semester.
-</div>
-<br />
-<div id="sprBrkDiv">
-And there $sprBrkIsAre <span id="daysTilSprBrk">$daysTilSprBrk</span> $sprBrkPlural until spring break!
-</div>
-EOL;
+$semEndSchoolDays = weekdaysTil($data['semesterEnd']);
+$sprBrkSchoolDays = weekdaysTil($data['springBreak']);
+
+$semesterTotal = daysInDataInterval($data['semesterStart'], $data['semesterEnd']);
+$daysComplete = $semesterTotal-$daysTilSemEnd;
+$percComplete = number_format($daysComplete/$semesterTotal*100, 2);
 
 ?>
+
+<h1>Iowa State University</h1>
+
+<div id="semEndDiv">
+There <?php echo $semEndIsAre ?> <span id="daysTilSemEnd" ><?php echo $daysTilSemEnd?></span><span id="semTotal">/<?php echo $semesterTotal ?></span> <?php echo $semEndPlural?> left in the semester.
+</div>
+
+<span class="percCompleteSect">
+<span class="percComplete"><?php echo $percComplete ?>%</span> complete.
+</span>
+
+<span id="semEndSchoolDaysSect" class="schoolDaysSect">
+<span id="semEndSchoolDays" class="schoolDays"><?php echo $semEndSchoolDays ?></span> school days.
+</span>
+
+<br />
+<br />
+<br />
+
+<div id="sprBrkDiv">
+And there <?php echo $sprBrkIsAre?> <span id="daysTilSprBrk"><?php echo $daysTilSprBrk?></span> <?php echo $sprBrkPlural?> until spring break!
+</div>
+
+<span id="sprBrkSchoolDaysSect" class="schoolDaysSect">
+<span id="sprBrkSchoolDays" class="schoolDays"><?php echo $sprBrkSchoolDays ?></span> school days.
+</span>
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
