@@ -17,7 +17,6 @@ body {
 
     color: rgb(242,191,73);
     font-family: 'Open Sans', sans-serif;
-    text-align: center;
     text-shadow: 1px 1px 0px #733;
 }
 
@@ -27,9 +26,9 @@ h1 {
     display: none;
 }
 
-#semEndDiv {
-    margin-top: 70px;
+#semEndRow {
     font-size: 50px;
+    height: 110px;
 }
 #daysTilSemEnd {
     font-size: 100px;
@@ -38,25 +37,43 @@ h1 {
     font-size: 20px;
 }
 
-#sprBrkDiv {
+#sprBrkRow {
     font-size: 40px;
 }
 #daysTilSprBrk {
     font-size: 80px;
 }
 
-.schoolDaysSect {
+.schoolDaysRow {
     font-size: 30px;
 }
 .schoolDays {
     font-size: 50px;
 }
 
-.percCompleteSect {
+.percCompleteRow {
     font-size: 30px;
 }
-.percComplete{
+.percComplete {
     font-size: 50px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 70px;
+}
+tr {
+    vertical-align: text-bottom;
+}
+.l {
+    text-align: right;
+}
+.r {
+    text-align: left;
+}
+#gapRow {
+    height: 40px;
 }
 </style>
 <?php
@@ -148,29 +165,22 @@ $percComplete = number_format($daysComplete/$semesterTotal*100, 2);
 
 <h1>Iowa State University</h1>
 
-<div id="semEndDiv">
-There <?php echo $semEndIsAre ?> <span id="daysTilSemEnd" ><?php echo $daysTilSemEnd?></span><span id="semTotal">/<?php echo $semesterTotal ?></span> <?php echo $semEndPlural?> left in the semester.
-</div>
+<table>
+<tr id="semEndRow"><td class="l">There <?php echo $semEndIsAre ?> <span id="daysTilSemEnd" ><?php echo $daysTilSemEnd?></span></td>
+<td class="r"><span id="semTotal">/<?php echo $semesterTotal ?></span> <?php echo $semEndPlural?> left in the semester.</td></tr>
+<tr class="percCompleteRow"><td class="percComplete l"><?php echo $percComplete ?>%</td>
+<td class="r"> complete.</td></tr>
 
-<span class="percCompleteSect">
-<span class="percComplete"><?php echo $percComplete ?>%</span> complete.
-</span>
+<tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $semEndSchoolDays ?></span></td>
+<td class="r"> school days.</td></tr>
 
-<span id="semEndSchoolDaysSect" class="schoolDaysSect">
-<span id="semEndSchoolDays" class="schoolDays"><?php echo $semEndSchoolDays ?></span> school days.
-</span>
+<tr id="gapRow" />
 
-<br />
-<br />
-<br />
+<tr id="sprBrkRow"><td class="l">And there <?php echo $sprBrkIsAre?> <span id="daysTilSprBrk"><?php echo $daysTilSprBrk?></td>
+<td class="r"> <?php echo $sprBrkPlural?> until spring break!</td></tr>
 
-<div id="sprBrkDiv">
-And there <?php echo $sprBrkIsAre?> <span id="daysTilSprBrk"><?php echo $daysTilSprBrk?></span> <?php echo $sprBrkPlural?> until spring break!
-</div>
-
-<span id="sprBrkSchoolDaysSect" class="schoolDaysSect">
-<span id="sprBrkSchoolDays" class="schoolDays"><?php echo $sprBrkSchoolDays ?></span> school days.
-</span>
+<tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $sprBrkSchoolDays ?></span></td>
+<td class="r">school days.</td></tr>
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
