@@ -1,0 +1,13 @@
+{
+    "semesterEnd": {
+        "month": "5",
+        "day": "4",
+        "year": "2012"
+    },
+
+    "springBreak": {
+        "month": "3",
+        "day": "12",
+        "year": "2012"
+    }
+}
