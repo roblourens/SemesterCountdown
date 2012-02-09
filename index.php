@@ -101,14 +101,17 @@ $semEndSchoolDays = weekdaysTil($data['semesterEnd']);
 $sprBrkSchoolDays = weekdaysTil($data['springBreak']);
 $veisheaSchoolDays = weekdaysTil($data['veishea']);
 
+// TODO: make better
+$veisheaSchoolDays -= 5;
+
 $semesterTotal = daysInDataInterval($data['semesterStart'], $data['semesterEnd']);
 $daysComplete = $semesterTotal-$daysTilSemEnd;
 $percComplete = number_format($daysComplete/$semesterTotal*100, 2);
 
 ?>
 
-<h1>Iowa State University</h1>
 
+<!-- try ?argyle_mode -->
 <div id="wrapper">
 <div id="topSpace">&nbsp;</div>
 <table>

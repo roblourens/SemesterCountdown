@@ -20,12 +20,6 @@ body {
     background-image: url('grid_noise.png');
 }
 
-h1 {
-    margin-top: 50px;
-    font-size: 70px;
-    display: none;
-}
-
 table {
     font-size: 1.0em;
 }
