@@ -3,123 +3,21 @@
 <title>Semester Countdown</title>
 </head>
 <body>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800|Homenaje' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Glegoo|Ropa+Sans|Asap:400,700|Telex' rel='stylesheet' type='text/css'>
-<style>
-
-body {
-    background: rgb(206,17,38); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(206,17,38,1) 0%, rgba(119,10,21,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(206,17,38,1)), color-stop(100%,rgba(119,10,21,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%); /* IE10+ */
-    background: linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce1126', endColorstr='#770a15',GradientType=0 ); /* IE6-9 */
-
-    color: rgb(242,191,73);
-    /* letter-spacing: .1em; */
-    /* font-family: 'Open Sans', sans-serif; */
-    /* font-family: 'Homenaje', sans-serif; */
-    /* font-family: 'Glegoo', sans-serif; */
-    /* font-family: 'Ropa Sans', sans-serif; */
-    /* font-family: 'Asap', sans-serif; */
-    font-family: 'Telex', sans-serif;
-    text-shadow: 1px 1px 0px #733;
-    margin: 0px;
-}
-
-#wrapper {
-    width: 100%;
-    height: 100%;
-    background-image: url('grid_noise.png');
-}
-
-/*
-    Homenaje: tight, robotic
-    Glegoo:   wide, slightly serifed, thin
-    Ropa:     tight, not crazy about it
-    Asap:     rounded, 'normal'
-    Telex:    just a little off-kilterness - nice
-*/
-
-h1 {
-    margin-top: 50px;
-    font-size: 70px;
-    display: none;
-}
-
-table {
-    font-size: 1.0em;
-}
-
-#topSpace {
-    height: 7%;
-}
-
-#semEndRow {
-    font-size: 2.7em;
-}
-#daysTilSemEnd {
-    font-size: 2em;
-}
-
-#semTotal {
-    font-size: .5em;
-}
-
-.percCompleteRow {
-    font-size: 1.5em;
-}
-.percComplete {
-    font-size: 1.7em;
-}
-
-.schoolDaysRow {
-    font-size: 1.5em;
-}
-.schoolDays {
-    font-size: 1.7em;
-}
-
-
-#sprBrkRow {
-    font-size: 2.2em;
-}
-#daysTilSprBrk {
-    font-size: 2em;
-}
-
-#veisheaRow {
-    font-size: 2.2em;
-}
-#daysTilVeishea {
-    font-size: 2em;
-}
-#riot {
-    display: none;
-}
-
-table {
-    margin-left: auto;
-    margin-right: auto;
-}
-tr {
-    vertical-align: text-bottom;
-}
-.l {
-    text-align: right;
-    white-space: nowrap;
-}
-.r {
-    text-align: left;
-}
-.gapRow {
-    height: 40px;
-}
-</style>
+<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
+<link href='sc.css' rel='stylesheet' type='text/css'>
 <?php
 date_default_timezone_set("America/Chicago");
+
+if (isset($_GET['argyle_mode']))
+{
+    echo <<<EOL
+<style>
+#wrapper {
+    background-image: url('argyle.png');
+}
+</style>
+EOL;
+}
 
 function dataToTime($data)
 {
