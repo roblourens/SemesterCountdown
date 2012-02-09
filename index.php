@@ -31,13 +31,19 @@ function daysTilTime($future)
 
 function daysInInterval($start, $end)
 {
+    # normalize out of DST
+    if (date("I", $start)=="1")
+        $start += 60*60;
+
+    if (date("I", $end)=="1")
+        $end += 60*60;
+
     $secs = $end-$start;
-    if ($secs < 0)
+    if ($secs <= 0)
         $days = 0;
     else
     {
-        $secs += 60*60*24; # need to count today
-        $days = floor($secs/60/60/24);
+        $days = ceil($secs/60/60/24);
     }
 
     return $days;
@@ -109,7 +115,6 @@ $daysComplete = $semesterTotal-$daysTilSemEnd;
 $percComplete = number_format($daysComplete/$semesterTotal*100, 2);
 
 ?>
-
 
 <!-- try ?argyle_mode -->
 <div id="wrapper">
