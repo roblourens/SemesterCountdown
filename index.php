@@ -1,8 +1,23 @@
 <html>
 <head>
 <title>Semester Countdown</title>
+<meta property="og:title" content="ISU Semester Countdown" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://iastate.semestercountdown.com" />
+<meta property="og:image" content="http://iastate.semestercountdown.com/fbimg.png" />
+<meta property="og:site_name" content="ISU Semester Countdown" />
+<meta property="fb:admins" content="500029869" />
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=298537000208033";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
 <link href='sc.css' rel='stylesheet' type='text/css'>
 <?php
@@ -142,9 +157,21 @@ $percComplete = number_format($daysComplete/$semesterTotal*100, 2);
 <td class="r"> <?php echo $sprBrkPlural ?> until <span id="riot">RIOT! </span>VEISHEA!</td></tr>
 <tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $veisheaSchoolDays ?></span></td>
 <td class="r">school days.</td></tr>
+
+<tr class="gapRow"/>
+
+<tr id="fbRow"><td class="l">&nbsp;</td>
+<td class="r"> <div class="fb-like" data-href="http://iastate.semestercountdown.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div></td></tr>
+
+<tr id="twitterRow"><td class="l">&nbsp;</td>
+<td class="r"><a href="https://twitter.com/share" class="twitter-share-button" data-text="<?php echo $daysTilSemEnd?> days left in the semester!">Tweet</a></td></tr>
+
+</table>
 </div>
 
 <script type="text/javascript">
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28941284-1']);
   _gaq.push(['_setDomainName', 'semestercountdown.com']);
