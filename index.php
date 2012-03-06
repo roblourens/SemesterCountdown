@@ -17,6 +17,8 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=298537000208033";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+<script type="text/javascript" src="moment.min.js"></script>
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
 <link href='sc.css' rel='stylesheet' type='text/css'>
@@ -34,46 +36,6 @@ if (isset($_GET['argyle_mode']))
 EOL;
 }
 
-function dataToTime($data)
-{
-    return mktime(0, 0, 0, $data['month'], $data['day'], $data['year']);
-}
-
-function daysTilTime($future)
-{
-    return daysInInterval(time(), $future);
-}
-
-function daysInInterval($start, $end)
-{
-    # normalize out of DST
-    if (date("I", $start)=="1")
-        $start += 60*60;
-
-    if (date("I", $end)=="1")
-        $end += 60*60;
-
-    $secs = $end-$start;
-    if ($secs <= 0)
-        $days = 0;
-    else
-    {
-        $days = ceil($secs/60/60/24);
-    }
-
-    return $days;
-}
-
-function daysInDataInterval($dataStart, $dataEnd)
-{
-    return daysInInterval(dataToTime($dataStart), dataToTime($dataEnd));
-}
-
-function daysTil($data)
-{
-    $future = dataToTime($data);
-    return daysTilTime($future);
-}
 
 function weekdaysTil($data)
 {
@@ -94,71 +56,58 @@ function weekdaysTil($data)
     return $days;
 }
 
-function isAre($n)
-{
-    return $n == 1 ? 'is' : 'are';
-}
-
-function pluralDays($n)
-{
-    return $n == 1 ? 'day' : 'days';
-}
-
-$json = file_get_contents('iastate.json');
+$json = file_get_contents('new2.json');
 $data = json_decode($json, true);
-
-$daysTilSemEnd = daysTil($data['semesterEnd']);
-$daysTilSprBrk = daysTil($data['springBreak']);
-$daysTilVeishea = daysTil($data['veishea']);
-
-$semEndIsAre = isAre($daysTilSemEnd);
-$semEndPlural = pluralDays($daysTilSemEnd);
-$sprBrkIsAre = isAre($daysTilSprBrk);
-$sprBrkPlural = pluralDays($daysTilSprBrk);
-$veisheaIsAre = isAre($daysTilVeishea);
-$veisheaPlural = pluralDays($daysTilVeishea);
-
-$semEndSchoolDays = weekdaysTil($data['semesterEnd']);
-$sprBrkSchoolDays = weekdaysTil($data['springBreak']);
-$veisheaSchoolDays = weekdaysTil($data['veishea']);
-
-// TODO: make better
-$veisheaSchoolDays -= 5;
-
-$semesterTotal = daysInDataInterval($data['semesterStart'], $data['semesterEnd']);
-$daysComplete = $semesterTotal-$daysTilSemEnd;
-$percComplete = number_format($daysComplete/$semesterTotal*100, 2);
-
 ?>
+
+<script type='text/javascript' src='DateSpan.js'></script>
+<script type='text/javascript' src='U.js'></script>
+<script type='text/javascript'>
+<?php echo "U.init($json);"; ?>
+
+function doUpdate()
+{
+    U.update();
+    setTimeout(doUpdate, 1000);
+}
+
+doUpdate();
+</script>
 
 <!-- try ?argyle_mode -->
 <div id="wrapper">
 <div id="topSpace">&nbsp;</div>
 <table>
-<tr id="semEndRow"><td class="l">There <?php echo $semEndIsAre ?> <span id="daysTilSemEnd" ><?php echo $daysTilSemEnd?></span></td>
-<td class="r"><span id="semTotal">/<?php echo $semesterTotal ?></span> <?php echo $semEndPlural?> left in the semester.</td></tr>
-<tr class="percCompleteRow"><td class="percComplete l"><?php echo $percComplete ?></td>
-<td class="r">% complete.</td></tr>
 
-<tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $semEndSchoolDays ?></span></td>
-<td class="r"> school days.</td></tr>
+<?php
+foreach ($data['events'] as $eventName => $event)
+{
+    // There are # days ...
+    printf('<tr id="%1$sRow"><td class="l">There <span id="%1$s_isAre"></span> <span id="%1$s_daysTil" ></span></td>', $eventName);
+    printf("<td class='r'>");
 
-<tr class="gapRow" />
+    // /total
+    if (isset($event['refPoint']))
+        printf('<span id="semTotal">/<span id="%1$s_total"></span></span> ', $eventName);
 
-<tr id="sprBrkRow"><td class="l">There <?php echo $sprBrkIsAre ?> <span id="daysTilSprBrk"><?php echo $daysTilSprBrk?></td>
-<td class="r"> <?php echo $sprBrkPlural?> until Spring break.</td></tr>
+    // # days phrase
+    printf('<span id="%1$s_days"></span> %2$s</td></tr>', $eventName, $event['phrase']);
 
-<tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $sprBrkSchoolDays ?></span></td>
-<td class="r">school days.</td></tr>
+    // % complete
+    if (isset($event['refPoint']))
+    {
+        printf('<tr class="%1$s_percRow"><td class="percComplete l"><span id="%1$s_perc"></span></td>', $eventName)
+        print('<td class="r">% complete.</td></tr>');
+    }
 
-<tr class="gapRow"/>
+    // # school days
+    printf('<tr class="schoolDaysRow"><td class="l"><span id="%1$s_schoolDays" class="schoolDays"></span></td>');
+    printf('<td class="r"> school days.</td></tr>');
 
-<tr id="veisheaRow"><td class="l">And there <?php echo $veisheaIsAre ?> <span id="daysTilVeishea"><?php echo $daysTilVeishea ?></td>
-<td class="r"> <?php echo $sprBrkPlural ?> until <span id="riot">RIOT! </span>VEISHEA!</td></tr>
-<tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $veisheaSchoolDays ?></span></td>
-<td class="r">school days.</td></tr>
+    printf('<tr class="gapRow" />');
+}
+?>
 
-<tr class="gapRow"/>
 
 <tr id="fbRow"><td class="l">&nbsp;</td>
 <td class="r"> <div class="fb-like" data-href="http://iastate.semestercountdown.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div></td></tr>
