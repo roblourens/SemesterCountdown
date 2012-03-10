@@ -18,8 +18,8 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
-<link href='sc.css' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css' ></link>
+<link href='sc.css' rel='stylesheet' type='text/css'></link>
 <?php
 date_default_timezone_set("America/Chicago");
 
@@ -119,11 +119,14 @@ $veisheaIsAre = isAre($daysTilVeishea);
 $veisheaPlural = pluralDays($daysTilVeishea);
 
 $semEndSchoolDays = weekdaysTil($data['semesterEnd']);
+$semEndSchoolDaysPlural = pluralDays($semEndSchoolDays);
 $sprBrkSchoolDays = weekdaysTil($data['springBreak']);
+$sprBrkSchoolDaysPlural = pluralDays($sprBrkSchoolDays);
 $veisheaSchoolDays = weekdaysTil($data['veishea']);
 
 // TODO: make better
 $veisheaSchoolDays -= 5;
+$veisheaSchoolDaysPlural = pluralDays($veisheaSchoolDays);
 
 $semesterTotal = daysInDataInterval($data['semesterStart'], $data['semesterEnd']);
 $daysComplete = $semesterTotal-$daysTilSemEnd;
@@ -141,7 +144,7 @@ $percComplete = number_format($daysComplete/$semesterTotal*100, 2);
 <td class="r">% complete.</td></tr>
 
 <tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $semEndSchoolDays ?></span></td>
-<td class="r"> school days.</td></tr>
+<td class="r"> school <?php echo $semEndSchoolDaysPlural ?>.</td></tr>
 
 <tr class="gapRow" />
 
@@ -149,14 +152,14 @@ $percComplete = number_format($daysComplete/$semesterTotal*100, 2);
 <td class="r"> <?php echo $sprBrkPlural?> until Spring break.</td></tr>
 
 <tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $sprBrkSchoolDays ?></span></td>
-<td class="r">school days.</td></tr>
+<td class="r">school <?php echo $sprBrkSchoolDaysPlural ?>.</td></tr>
 
 <tr class="gapRow"/>
 
 <tr id="veisheaRow"><td class="l">And there <?php echo $veisheaIsAre ?> <span id="daysTilVeishea"><?php echo $daysTilVeishea ?></td>
 <td class="r"> <?php echo $sprBrkPlural ?> until <span id="riot">RIOT! </span>VEISHEA!</td></tr>
 <tr class="schoolDaysRow"><td class="l"><span class="schoolDays"><?php echo $veisheaSchoolDays ?></span></td>
-<td class="r">school days.</td></tr>
+<td class="r">school <?php echo $veisheaSchoolDaysPlural ?>.</tr>
 
 <tr class="gapRow"/>
 
