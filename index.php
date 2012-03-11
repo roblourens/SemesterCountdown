@@ -76,47 +76,15 @@ doUpdate();
 
 <!-- try ?argyle_mode -->
 <div id="wrapper">
-<div id="topSpace">&nbsp;</div>
+</div>
+
 <table>
-
-<?php
-foreach ($data['events'] as $eventName => $event)
-{
-    // There are # days ...
-    printf('<tr id="%1$sRow"><td class="l">There <span id="%1$s_isAre"></span> <span id="%1$s_daysTil" ></span></td>', $eventName);
-    printf("<td class='r'>");
-
-    // /total
-    if (isset($event['refPoint']))
-        printf('<span id="semTotal">/<span id="%1$s_total"></span></span> ', $eventName);
-
-    // # days phrase
-    printf('<span id="%1$s_days"></span> %2$s</td></tr>', $eventName, $event['phrase']);
-
-    // % complete
-    if (isset($event['refPoint']))
-    {
-        printf('<tr class="%1$s_percRow"><td class="percComplete l"><span id="%1$s_perc"></span></td>', $eventName)
-        print('<td class="r">% complete.</td></tr>');
-    }
-
-    // # school days
-    printf('<tr class="schoolDaysRow"><td class="l"><span id="%1$s_schoolDays" class="schoolDays"></span></td>');
-    printf('<td class="r"> school days.</td></tr>');
-
-    printf('<tr class="gapRow" />');
-}
-?>
-
-
 <tr id="fbRow"><td class="l">&nbsp;</td>
 <td class="r"> <div class="fb-like" data-href="http://iastate.semestercountdown.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div></td></tr>
 
 <tr id="twitterRow"><td class="l">&nbsp;</td>
 <td class="r"><a href="https://twitter.com/share" class="twitter-share-button" data-text="<?php echo $daysTilSemEnd?> days left in the semester!">Tweet</a></td></tr>
-
 </table>
-</div>
 
 <script type="text/javascript">
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

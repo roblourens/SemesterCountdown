@@ -1,5 +1,10 @@
 DateSpan = {};
 
+DateSpan.timeInDataInterval = function(start, end)
+{
+    return this.timeInInterval(this.dataToTime(start), this.dataToTime(end));
+}
+
 DateSpan.timeInInterval = function(start, end)
 {
     // normalize out of DST
@@ -34,4 +39,26 @@ DateSpan.timeTilData = function(data)
 {
     time = this.dataToTime(data);
     return this.timeTilTime(time);
+}
+
+DateSpan.schoolDaysTilData = function(end)
+{
+    return this.schoolDaysInInterval(moment(), this.dataToTime(end));
+}
+
+DateSpan.schoolDaysInInterval = function(start, end)
+{
+    var days = 0;
+
+    while (start < end)
+    {
+        // If the day is a weekday... (Sun: 0, Sat: 6)
+        if (start.day() % 6 != 0) {
+            days++;
+        }
+
+        start.add('days', 1);
+    }
+
+    return days;
 }

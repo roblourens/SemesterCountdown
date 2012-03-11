@@ -19,74 +19,73 @@ body {    background: rgb(206,17,38); /* Old browsers */
     background-image: url('grid_noise.png');
 }
 
-table {
-    font-size: 1.0em;
+.row {
+    width: 100%;
+    margin-bottom: -5px;
+    margin-top: -5px;
 }
 
-#topSpace {
-    height: 7%;
+.group {
+    margin-bottom: 20px;
 }
 
-#semEndRow {
-    font-size: 2.7em;
-}
-#daysTilSemEnd {
-    font-size: 2em;
+#firstGroup {
+    font-size: 1.3em;
 }
 
-#semTotal {
-    font-size: .5em;
-}
-
-.percCompleteRow {
+.main {
     font-size: 1.5em;
+    margin-bottom: -10px;
 }
-.percComplete {
-    font-size: 1.7em;
+.subtime {
+    font-size: .8em;
 }
-
-.schoolDaysRow {
-    font-size: 1.5em;
-}
-.schoolDays {
-    font-size: 1.7em;
-}
-
-
-#sprBrkRow {
-    font-size: 2.2em;
-}
-#daysTilSprBrk {
-    font-size: 2em;
-}
-
-#veisheaRow {
-    font-size: 2.2em;
-}
-#daysTilVeishea {
-    font-size: 2em;
-}
-#riot {
-    display: none;
-}
-
-.percCompleteRow, .schoolDaysRow {
+.special {
+    font-size: 1em;
     color: rgb(236,209,122);
 }
 
-table {
-    margin-left: auto;
-    margin-right: auto;
+.seconds {
+    margin-bottom: 10px;
 }
-tr {
-    vertical-align: text-bottom;
+
+.percCompleteRow {
+    font-size: 1.2em;
 }
+
+.num {
+    font-size: 1.6em;
+}
+.days {
+    font-size: 2em;
+}
+
+.total {
+    font-size: .5em;
+}
+
+#tableDiv {
+    font-size: 1.3em;
+    display: table;  
+    table-layout: fixed;  
+    width: 900px;
+    margin-left: 20%;
+    padding-top: 20px;
+}
+
 .l {
     text-align: right;
     white-space: nowrap;
+    display: table-cell;
+    vertical-align: text-bottom;
+    width: 300px;
+    padding-right: 5px;
 }
 .r {
     text-align: left;
+    display: table-cell;
+    vertical-align: text-bottom;
+    width: 600px;
 }
 .gapRow {
     height: 40px;
