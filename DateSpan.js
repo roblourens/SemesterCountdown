@@ -2,13 +2,12 @@ DateSpan = {};
 
 // timezone should be the non-daylight savings offset (e.g. -0600 for central US)
 // e.g. user says event is at T:00 central. That's either DST or not, depending on the date. The timezone here is the non-DST offset.
-// So initially parse the date using the non-DST offset for T:00. If it's not DST on this date, that is right. But if it is, the parsed date is wrong - adjust to (T+1):00.
-// So now we have a time which is right for the non-DST offset timezone.
+// So initially parse the date using the non-DST offset for T:00. If it's not DST on this date, that is right. But if it is, the parsed date is wrong - adjust to (T-1):00.
 
 // example:
 // 8:00, March 20
-//      parsed to 8:00, -0600   =>  displayed as 9:00, -0500
-//      adjust to 7:00, -0600   =>  displayed as 8:00, -0500
+//      parsed to 8:00, -0600   =>  i.e. 9:00, -0500
+//      adjust to 7:00, -0600   =>  i.e. 8:00, -0500
 //      considered as 8:00, -0500 by moment
 //      compare with moment() -> 8:00, -0500 at the clock's 8:00 on that day
 DateSpan.init = function(timezone)
@@ -76,4 +75,13 @@ DateSpan.schoolDaysInInterval = function(start, end)
     }
 
     return days;
+}
+
+// takes the result of one of the above timeTil functions
+DateSpan.roundedDays = function(interval)
+{
+    if (interval['h'] > 0 || interval['m'] > 0 || interval['s'] > 0)
+        return interval['d'] + 1;
+    else
+        return interval['d'];
 }

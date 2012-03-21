@@ -10,8 +10,6 @@ U.init = function(d)
 
 U.update = function()
 {
-    console.log('updating');
-
     var first = true;
 
     var ctnt = "<div id='tableDiv'>";
@@ -39,38 +37,28 @@ U.update = function()
             ctnt += '<div class="group">';
 
         // There are # days ...
+        var roundedDays = DateSpan.roundedDays(t);
         ctnt += "<div class='row main'>";
-        ctnt += '<div class="l">There '+this.isAre(t['d'])+' <span class="days">'+t['d']+'</span></div>';
+        ctnt += '<div class="l">There '+this.isAre(roundedDays)+' <span class="days">'+roundedDays+'</span></div>';
 
         ctnt += "<div class='r'>";
         // /total
         if (e['refDate'])
         {
-            var totalDays = DateSpan.timeInDataInterval(e['refDate'], e['time'])['d'];
+            var totalDays = DateSpan.roundedDays(DateSpan.timeInDataInterval(e['refDate'], e['time']));
             ctnt += '<span class="total">/'+totalDays+'</span> ';
         }
 
         // # days phrase
-        ctnt += this.pluralize(t['d'], 'day')+' '+e['phrase']+'</div>';
+        ctnt += this.pluralize(roundedDays, 'day')+' '+e['phrase']+'</div>';
         ctnt += '</div>';
 
-        // # hours row
-        ctnt += "<div class='row subtime'>";
-        ctnt += '<div class="l num">'+t['h']+'</div>';
-        ctnt += '<div class="r">'+this.pluralize(t['h'], 'hour')+'.</div>';
-        ctnt += '</div>';
-
-        // # minutes row
-        ctnt += '<div class="row subtime">';
-        ctnt += '<div class="l num">'+t['m']+'</div>';
-        ctnt += '<div class="r">'+this.pluralize(t['m'], 'minute')+'.</div>';
-        ctnt += '</div>';
-
-        // # seconds row
-        ctnt += '<div class="row subtime seconds">';
-        ctnt += '<div class="l num">'+t['s']+'</div>';
-        ctnt += '<div class="r">'+this.pluralize(t['s'], 'second')+'.</div>'; 
-        ctnt += '</div>';
+        $.each(['day', 'hour', 'minute', 'second'], function(i, v) {
+            ctnt += "<div class='row subtime'>";
+            ctnt += '<div class="l num">'+t[v[0]]+'</div>';
+            ctnt += '<div class="r">'+U.pluralize(t[v[0]], v)+'.</div>';
+            ctnt += '</div>';
+        });
 
         // % complete
         if (e['refDate'])
@@ -96,9 +84,10 @@ U.update = function()
         ctnt += '</div>';
 
         if (first)
+        {
             firstT = t;
-
-        first = false;
+            first = false;
+        }
     }
 
     $('#wrapper').html(ctnt);
