@@ -16,10 +16,10 @@ body {    background: rgb(206,17,38); /* Old browsers */
 #main {
     background-image: url('grid_noise.png');
     width: 100%;
+    min-height: 100%;
 }
 
 #wrapper {
-    min-height: 90%;
     width: 100%;
 }
 
