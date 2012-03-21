@@ -23,7 +23,7 @@ U.update = function()
         var t = DateSpan.timeTilData(e['time']);
 
         // if the time finished more than 1 day ago, don't output the event
-        if (t['d'] <= -10)
+        if (t['d'] <= -1)
             continue;
         else
         {
