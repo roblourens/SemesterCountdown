@@ -75,16 +75,27 @@ doUpdate();
 </script>
 
 <!-- try ?argyle_mode -->
+<div id="main">
 <div id="wrapper">
 </div>
 
-<table>
-<tr id="fbRow"><td class="l">&nbsp;</td>
-<td class="r"> <div class="fb-like" data-href="http://iastate.semestercountdown.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div></td></tr>
+<div class="tableDiv">
+<div class="group">
+<div class="socialRow">
+<div class="l"></div>
+<div class="r">
+<div class="fb-like" data-href="http://iastate.semestercountdown.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+</div>
+</div>
 
-<tr id="twitterRow"><td class="l">&nbsp;</td>
-<td class="r"><a href="https://twitter.com/share" class="twitter-share-button" data-text="<?php echo $daysTilSemEnd?> days left in the semester!">Tweet</a></td></tr>
-</table>
+<div class="socialRow">
+<div class="l"></div>
+<div class="r">
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="How many days left in the semester?">Tweet</a>
+</div>
+</div>
+</div>
+</div>
 
 <script type="text/javascript">
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

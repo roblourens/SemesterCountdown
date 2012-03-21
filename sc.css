@@ -13,16 +13,25 @@ body {    background: rgb(206,17,38); /* Old browsers */
     height: 100%;
 }
 
-#wrapper {
-    width: 100%;
-    min-height: 100%;
+#main {
     background-image: url('grid_noise.png');
+    width: 100%;
+}
+
+#wrapper {
+    min-height: 90%;
+    width: 100%;
 }
 
 .row {
     width: 100%;
     margin-bottom: -5px;
     margin-top: -5px;
+}
+
+.socialRow {
+    width: 100%;
+    margin: 5px;
 }
 
 .group {
@@ -64,7 +73,7 @@ body {    background: rgb(206,17,38); /* Old browsers */
     font-size: .5em;
 }
 
-#tableDiv {
+.tableDiv {
     font-size: 1.3em;
     display: table;  
     table-layout: fixed;  

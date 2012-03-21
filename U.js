@@ -12,7 +12,7 @@ U.update = function()
 {
     var first = true;
 
-    var ctnt = "<div id='tableDiv'>";
+    var ctnt = "<div class='tableDiv'>";
     var firstT;
     for (eventName in this.events)
     {
