@@ -3,8 +3,9 @@ var U = {};
 U.init = function(d)
 {
     this.data = d;
-    this.timezone = d['timezone'];
     this.events = d['events'];
+
+    DateSpan.init(d['timezone']);
 }
 
 U.update = function()
