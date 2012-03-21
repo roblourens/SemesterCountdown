@@ -1,25 +1,21 @@
 {
-    "semesterStart": {
-        "month": "1",
-        "day": "9",
-        "year": "2012"
-    },
+    "timezone": "-0600",
 
-    "semesterEnd": {
-        "month": "5",
-        "day": "5",
-        "year": "2012"
-    },
+    "events": {
+        "semEnd": {
+            "time": "2012-05-04, 17:00",
+            "phrase": "left in the semester.",
+            "refDate": "2012-01-09, 08:00"
+        },
 
-    "veishea": {
-        "month": "4",
-        "day": "16",
-        "year": "2012"
-    },
+        "sprBreak": {
+            "time": "2012-03-09, 17:00",
+            "phrase": "until Spring break."
+        },
 
-    "springBreak": {
-        "month": "3",
-        "day": "10",
-        "year": "2012"
+        "veishea": {
+            "time": "2012-04-16, 08:00",
+            "phrase": "until VEISHEA!"
+        }
     }
 }

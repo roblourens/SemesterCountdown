@@ -56,7 +56,7 @@ function weekdaysTil($data)
     return $days;
 }
 
-$json = file_get_contents('new2.json');
+$json = file_get_contents('iastate.json');
 $data = json_decode($json, true);
 ?>
 
