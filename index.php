@@ -29,7 +29,7 @@ if (isset($_GET['argyle_mode']))
 {
     echo <<<EOL
 <style>
-#wrapper {
+#main {
     background-image: url('argyle.png');
 }
 </style>
