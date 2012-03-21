@@ -20,8 +20,8 @@
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
 
-<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
-<link href='sc.css' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'></link>
+<link href='sc.css' rel='stylesheet' type='text/css'></link>
 <?php
 date_default_timezone_set("America/Chicago");
 
