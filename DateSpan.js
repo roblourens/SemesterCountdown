@@ -62,22 +62,51 @@ DateSpan.schoolDaysTilData = function(end)
 
 DateSpan.schoolDaysInInterval = function(start, end)
 {
+    if (start > end)
+        return 0;
+
     var days = 0;
 
+    // this function isn't completely generalized for a school day that goes
+    // through midnight
+    var startHour = 8;
+    var endHour = 17;
+
+    // to avoid overshooting when start < end but no school day between
+    end.subtract('days', 1);
     while (start < end)
     {
         // If the day is a weekday... (Sun: 0, Sat: 6)
-        if (start.day() % 6 != 0) {
+        if (start.day() % 6 != 0) 
+        {
             days++;
         }
 
         start.add('days', 1);
     }
 
+    // probably a faster way to do this
+    // start time inside school hours?
+    if (start.hours() >= startHour && start.hours() < endHour)
+        days++;
+
+    // end time inside?
+    else if (end.hours() >= startHour && end.hours() < endHour)
+    {
+        // don't count a school days when end is on the minute school starts
+        // e.g. 8:00
+        if (end.hours() != startHour || end.minutes() != 0)
+            days++;
+    }
+
+    // start/end around school hours?
+    else if (start.hours() < startHour && end.hours() >= endHour)
+        days++;
+
     return days;
 }
 
-// takes the result of one of the above timeTil functions
+// takes the result of one the above timeInInterval function
 DateSpan.roundedDays = function(interval)
 {
     if (interval['h'] > 0 || interval['m'] > 0 || interval['s'] > 0)
