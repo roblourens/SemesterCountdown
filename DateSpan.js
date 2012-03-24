@@ -72,37 +72,26 @@ DateSpan.schoolDaysInInterval = function(start, end)
     var startHour = 8;
     var endHour = 17;
 
-    // to avoid overshooting when start < end but no school day between
-    end.subtract('days', 1);
-    while (start < end)
+    var date = moment(start);
+
+    // normalize so we're counting the same thing
+    if (date.hours() < endHour)
+        date.hours(startHour);
+    else
+    {
+        date.add('days', 1);
+        date.hours(startHour);
+    }
+
+    while (date < end)
     {
         // If the day is a weekday... (Sun: 0, Sat: 6)
-        if (start.day() % 6 != 0) 
-        {
+        if (date.day() % 6 != 0)
             days++;
-        }
 
-        start.add('days', 1);
+        date.add('days', 1);
     }
-
-    // probably a faster way to do this
-    // start time inside school hours?
-    if (start.hours() >= startHour && start.hours() < endHour)
-        days++;
-
-    // end time inside?
-    else if (end.hours() >= startHour && end.hours() < endHour)
-    {
-        // don't count a school days when end is on the minute school starts
-        // e.g. 8:00
-        if (end.hours() != startHour || end.minutes() != 0)
-            days++;
-    }
-
-    // start/end around school hours?
-    else if (start.hours() < startHour && end.hours() >= endHour)
-        days++;
-
+    
     return days;
 }
 
