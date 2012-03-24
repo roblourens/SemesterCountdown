@@ -77,8 +77,8 @@ body {    background: rgb(206,17,38); /* Old browsers */
     font-size: 1.3em;
     display: table;  
     table-layout: fixed;  
-    width: 900px;
-    margin-left: 20%;
+    width: 850px;
+    margin-left: 15%;
     padding-top: 20px;
 }
 
@@ -94,7 +94,7 @@ body {    background: rgb(206,17,38); /* Old browsers */
     text-align: left;
     display: table-cell;
     vertical-align: text-bottom;
-    width: 600px;
+    width: 550px;
 }
 .gapRow {
     height: 40px;
