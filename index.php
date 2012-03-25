@@ -72,10 +72,19 @@ function doUpdate()
 }
 
 doUpdate();
+
+$(document).ready(function() {
+    $('#moreDetailsButton').attr('href', 'javascript: U.moreDetails();');
+    $('#fewerDetailsButton').attr('href', 'javascript: U.fewerDetails();');
+
+});
 </script>
 
 <!-- try ?argyle_mode -->
 <div id="main">
+<a id="fewerDetailsButton" class="detailsButton" >-</a>
+
+<a id="moreDetailsButton" class="detailsButton" >+</a>
 <div id="wrapper">
 </div>
 

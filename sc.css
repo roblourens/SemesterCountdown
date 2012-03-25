@@ -79,7 +79,7 @@ body {    background: rgb(206,17,38); /* Old browsers */
     table-layout: fixed;  
     width: 850px;
     margin-left: 15%;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .l {
@@ -98,4 +98,11 @@ body {    background: rgb(206,17,38); /* Old browsers */
 }
 .gapRow {
     height: 40px;
+}
+
+.detailsButton {
+    color: rgb(242,191,73);
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 1.4em;
 }

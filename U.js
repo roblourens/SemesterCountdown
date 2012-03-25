@@ -4,8 +4,21 @@ U.init = function(d)
 {
     this.data = d;
     this.events = d['events'];
+    this.detailLevel = 4;
 
     DateSpan.init(d['timezone']);
+}
+
+U.moreDetails = function()
+{
+    this.detailLevel = Math.min(this.detailLevel+1, 4);
+    this.update();
+}
+
+U.fewerDetails = function()
+{
+    this.detailLevel = Math.max(this.detailLevel-1, 0);
+    this.update();
 }
 
 U.update = function()
@@ -54,10 +67,13 @@ U.update = function()
         ctnt += '</div>';
 
         $.each(['day', 'hour', 'minute', 'second'], function(i, v) {
-            ctnt += "<div class='row subtime'>";
-            ctnt += '<div class="l num">'+t[v[0]]+'</div>';
-            ctnt += '<div class="r">'+U.pluralize(t[v[0]], v)+'.</div>';
-            ctnt += '</div>';
+            if (i < U.detailLevel)
+            {
+                ctnt += "<div class='row subtime'>";
+                ctnt += '<div class="l num">'+t[v[0]]+'</div>';
+                ctnt += '<div class="r">'+U.pluralize(t[v[0]], v)+'.</div>';
+                ctnt += '</div>';
+            }
         });
 
         // % complete
