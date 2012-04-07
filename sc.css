@@ -29,7 +29,7 @@ body {    background: rgb(206,17,38); /* Old browsers */
     margin-top: -5px;
 }
 
-.socialRow {
+.otherRow {
     width: 100%;
     margin: 5px;
 }
@@ -101,8 +101,15 @@ body {    background: rgb(206,17,38); /* Old browsers */
 }
 
 .detailsButton {
-    color: rgb(242,191,73);
+    color: rgb(236,209,122);
     text-decoration: none;
     margin-left: 15px;
     font-size: 1.4em;
+}
+
+#timelineCanvas {
+    width: 850px;
+    margin-left: 15%;
+    padding-top: 10px;
+    height: 150px;
 }

@@ -12,12 +12,14 @@
 
         "sprBreak": {
             "time": "2012-03-09, 17:00",
-            "phrase": "until Spring break."
+            "phrase": "until Spring break.",
+            "name": "Spring Break"
         },
 
         "veishea": {
             "time": "2012-04-16, 08:00",
-            "phrase": "until VEISHEA!"
+            "phrase": "until VEISHEA!",
+            "name": "VEISHEA"
         }
     }
 }

@@ -6,6 +6,25 @@ U.init = function(d)
     this.events = d['events'];
     this.detailLevel = 4;
 
+    // timeline canvas props
+    this.w = 800;
+    this.h = 150;
+    this.tickH = 20;
+    this.margin = 5;
+    this.baseProps = {
+        strokeStyle: "#000",
+        strokeWidth: 1,
+        lineCap: 'square'
+    };
+    // 800 long
+    this.textBaseProps = {
+        fillStyle: "rgb(242,191,73)",
+        font: "normal 10pt Telex, sans-serif",
+        baseline: "middle"
+    };
+
+    this.dateFmtStr = "MMM D, YYYY";
+
     DateSpan.init(d['timezone']);
 }
 
@@ -107,6 +126,91 @@ U.update = function()
     }
 
     $('#wrapper').html(ctnt);
+
+    $("canvas").clearCanvas();
+
+    // draw timeline
+    $("canvas").drawLine($.extend(this.baseProps, {
+        x1: this.margin, y1: this.h/2+.5,
+        x2: this.w-this.margin, y2: this.h/2+.5
+    }));
+
+    // draw beginning and end ticks
+    $("canvas").drawLine($.extend(this.baseProps, {
+        x1: this.margin+.5, y1: this.h/2-this.tickH/2,
+        x2: this.margin+.5, y2: this.h/2+this.tickH/2
+    }));
+    $("canvas").drawLine($.extend(this.baseProps, {
+        x1: this.w-this.margin+.5, y1: this.h/2-this.tickH/2,
+        x2: this.w-this.margin+.5, y2: this.h/2+this.tickH/2
+    }));
+
+    var refDate = DateSpan.dataToTime(this.data['ref']);
+    var refDateStr = refDate.format(this.dateFmtStr);
+
+    // write ref event time
+    $("canvas").drawText($.extend(this.textBaseProps, {
+        x: this.margin, y: this.h/2+this.tickH/2,
+        text: refDateStr,
+        align: "left", baseline: "top"
+    }));
+
+    // find the last event
+    var lastEvent = this.events[Object.keys(this.events)[0]];
+    for (eventName in this.events)
+    {
+        var e = this.events[eventName];
+        var date = DateSpan.dataToTime(e['time']);
+        if (date > DateSpan.dataToTime(lastEvent['time']))
+            lastEvent = e;
+    }
+
+    // draw the last event time
+    var endDateStr = DateSpan.dataToTime(lastEvent['time']).format(this.dateFmtStr);
+    $("canvas").drawText($.extend(this.textBaseProps, {
+        x: this.w-this.margin, y: this.h/2+this.tickH/2,
+        text: endDateStr,
+        align: "right", baseline: "top"
+    }));
+
+    // draw other events
+    for (eventName in this.events)
+    {
+        var e = this.events[eventName];
+        if (e != lastEvent)
+            this.drawEvent(e, refDate, lastEvent);
+    }
+
+    // draw now dot
+    var totalSecs = refDate.diff(DateSpan.dataToTime(lastEvent['time']), 'seconds');
+    var nowPosPercent = refDate.diff(moment(), 'seconds')/totalSecs;
+    $("canvas").drawEllipse({
+        fillStyle:'rgb(242,191,73)',
+        x: this.w*nowPosPercent, y: this.h/2, width: 10, height: 10, 
+        fromCenter:true
+    });
+}
+
+U.drawEvent = function(e, refDate, lastEvent)
+{
+    // position of event e between refDate and lastEvent
+    var totalSecs = refDate.diff(DateSpan.dataToTime(lastEvent['time']), 'seconds');
+    var secsToE = refDate.diff(DateSpan.dataToTime(e['time']), 'seconds');
+    var posPercent = secsToE/totalSecs;
+
+    // draw half-tick
+    $("canvas").drawLine($.extend(this.baseProps, {
+        x1: this.w*posPercent, y1: this.h/2-this.tickH/2,
+        x2: this.w*posPercent, y2: this.h/2
+    }));
+
+    // draw text
+    var eStr = e['name'] + ", " + DateSpan.dataToTime(e['time']).format(this.dateFmtStr);
+    $("canvas").drawText($.extend(this.textBaseProps, {
+        x: this.w*posPercent, y: this.h/2-this.tickH/2,
+        align: 'center', baseline: 'bottom',
+        text: eStr
+    }));
 }
 
 U.isAre = function(n)
@@ -128,4 +232,3 @@ U.zeroFill = function(number, d)
 
     return number;
 }
-

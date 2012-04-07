@@ -19,6 +19,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript" src="moment.min.js"></script>
 <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="jcanvas.min.js"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'></link>
 <link href='sc.css' rel='stylesheet' type='text/css'></link>
@@ -90,20 +91,23 @@ $(document).ready(function() {
 
 <div class="tableDiv">
 <div class="group">
-<div class="socialRow">
+<div class="otherRow">
 <div class="l"></div>
 <div class="r">
 <div class="fb-like" data-href="http://iastate.semestercountdown.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
 </div>
 </div>
 
-<div class="socialRow">
+<div class="otherRow">
 <div class="l"></div>
 <div class="r">
 <a href="https://twitter.com/share" class="twitter-share-button" data-text="How many days left in the semester?">Tweet</a>
 </div>
 </div>
 </div>
+</div>
+
+<div id="timeline"><canvas id="timelineCanvas" width="800" height="150"></canvas></div>
 </div>
 
 <script type="text/javascript">
