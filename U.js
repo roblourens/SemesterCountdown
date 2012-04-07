@@ -56,9 +56,9 @@ U.update = function()
 
         ctnt += "<div class='r'>";
         // /total
-        if (e['refDate'])
+        if (e['ref'])
         {
-            var totalDays = DateSpan.roundedDays(DateSpan.timeInDataInterval(e['refDate'], e['time']));
+            var totalDays = DateSpan.roundedDays(DateSpan.timeInDataInterval(e['ref'], e['time']));
             ctnt += '<span class="total">/'+totalDays+'</span> ';
         }
 
@@ -77,9 +77,9 @@ U.update = function()
         });
 
         // % complete
-        if (e['refDate'])
+        if (e['ref'])
         {
-            var refTime = DateSpan.dataToTime(e['refDate']);
+            var refTime = DateSpan.dataToTime(e['ref']);
             var endTime = DateSpan.dataToTime(e['time']);
             var now = moment();
 

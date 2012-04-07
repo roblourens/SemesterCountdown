@@ -1,11 +1,13 @@
 {
     "timezone": "-0600",
 
+    "ref": "2012-01-09, 08:00",
+
     "events": {
         "semEnd": {
             "time": "2012-05-04, 17:00",
             "phrase": "left in the semester.",
-            "refDate": "2012-01-09, 08:00"
+            "ref": "2012-01-09, 08:00"
         },
 
         "sprBreak": {
