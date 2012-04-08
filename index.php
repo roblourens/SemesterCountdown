@@ -89,6 +89,8 @@ $(document).ready(function() {
 <div id="wrapper">
 </div>
 
+<div id="timeline"><canvas id="timelineCanvas" width="800" height="75"></canvas></div>
+
 <div class="tableDiv">
 <div class="group">
 <div class="otherRow">
@@ -106,8 +108,6 @@ $(document).ready(function() {
 </div>
 </div>
 </div>
-
-<div id="timeline"><canvas id="timelineCanvas" width="800" height="150"></canvas></div>
 </div>
 
 <script type="text/javascript">

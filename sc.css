@@ -108,8 +108,7 @@ body {    background: rgb(206,17,38); /* Old browsers */
 }
 
 #timelineCanvas {
-    width: 850px;
+    width: 800px;
     margin-left: 15%;
-    padding-top: 10px;
-    height: 150px;
+    height: 75px;
 }
