@@ -31,26 +31,6 @@ if (isset($_GET['argyle_mode']))
 EOL;
 }
 
-
-function weekdaysTil($data)
-{
-    $future = dataToTime($data);
-    $days = 0;
-    $t = time();
-
-    while ($t < $future)
-    {
-        // If the day is a weekday... (Sun: 0, Sat: 6)
-        if (date('w', $t) % 6 != 0) {
-            $days++;
-        }
-
-        $t = strtotime('+1 day', $t);
-    }
-
-    return $days;
-}
-
 $json = file_get_contents('iastate.json');
 $data = json_decode($json, true);
 ?>
