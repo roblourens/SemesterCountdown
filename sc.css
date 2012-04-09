@@ -112,3 +112,21 @@ body {    background: rgb(206,17,38); /* Old browsers */
     margin-left: 15%;
     height: 75px;
 }
+
+#socialContainer {
+    position: relative;
+    height: 100px;
+    width: 100%;
+}
+
+#socialSet {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.socialItem {
+    float: left;
+}
