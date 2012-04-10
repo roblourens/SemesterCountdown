@@ -107,6 +107,7 @@ body {
 #socialContainer {
     position: relative;
     height: 100px;
+    min-height: 75px;
     width: 100%;
 }
 
