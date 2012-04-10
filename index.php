@@ -13,7 +13,7 @@
 <script type="text/javascript">
  var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28941284-1']);
-  _gaq.push(['_setDomainName', 'semestercountdown.com']);
+  _gaq.push(['_setDomainName', '.semestercountdown.com']);
   _gaq.push(['_trackPageview']);
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -42,6 +42,8 @@ if ($subdomain == 'lolhost')
     else
         $subdomain = 'iastate';
 }
+else if ($subdomain == 'semestercountdown')
+    $subdomain = $_GET['s'];
 
 $dataPath = 'data/'.$subdomain.'.json';
 $confPath = 'conf/'.$subdomain.'.json';

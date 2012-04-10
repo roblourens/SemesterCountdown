@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} ^/[^\/.]+/?$
+RewriteRule ^([^/\.]+)/?$ index.php?s=$1 [L]
+
+RewriteCond %{REQUEST_URI} ^/[^\/.]+/
+RewriteRule ^[^/\.]+/(.+)$ $1 [L]
