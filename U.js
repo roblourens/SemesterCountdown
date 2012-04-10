@@ -11,7 +11,6 @@ U.init = function(d)
     this.h = 75 ;
     this.tickH = 20;
     this.margin = 5;
-    this.pastColor = 'rgb(50, 50, 50)';
     this.dateFmtStr = "MMM D, YYYY";
 
     DateSpan.init(d['timezone']);
@@ -121,18 +120,20 @@ U.update = function()
     // draw timeline
     this.drawLine({
         x1: this.margin, y1: this.h/2,
-        x2: this.w-this.margin, y2: this.h/2
+        x2: this.w-this.margin, y2: this.h/2,
+        strokeStyle: Conf.timelineFuture
     });
 
     // draw beginning and end ticks
     this.drawLine({
         x1: this.margin-.5, y1: this.h/2-this.tickH/2,
         x2: this.margin-.5, y2: this.h/2+this.tickH/2,
-        strokeStyle: this.pastColor
+        strokeStyle: Conf.timelinePast
     });
     this.drawLine({
         x1: this.w-this.margin+.5, y1: this.h/2-this.tickH/2,
-        x2: this.w-this.margin+.5, y2: this.h/2+this.tickH/2
+        x2: this.w-this.margin+.5, y2: this.h/2+this.tickH/2,
+        strokeStyle: Conf.timelineFuture
     });
 
     var refDate = DateSpan.dataToTime(this.data['ref']);
@@ -184,10 +185,10 @@ U.update = function()
     this.drawLine({
         x1: this.margin, y1: this.h/2,
         x2: this.w*nowPosPercent, y2: this.h/2,
-        strokeStyle: this.pastColor
+        strokeStyle: Conf.timelinePast
     });
     $("canvas").drawEllipse({
-        fillStyle:'rgb(242,191,73)',
+        fillStyle:Conf.secondaryColor,
         x: this.w*nowPosPercent, y: this.h/2, width: 10, height: 10, 
         fromCenter:true
     });
@@ -205,7 +206,7 @@ U.drawEvent = function(e, refDate, lastEvent, isPast)
     };
 
     if (isPast)
-        args['strokeStyle'] = this.pastColor;
+        args['strokeStyle'] = Conf.timelinePast;
 
     // draw half-tick
     this.drawLine(args);
@@ -233,7 +234,7 @@ U.drawLine = function(args)
 U.drawText = function(args)
 {
     var textBaseProps = {
-        fillStyle: "rgb(242,191,73)",
+        fillStyle: Conf.secondaryColor,
         font: "normal 10pt Telex, sans-serif",
         baseline: "middle"
     };

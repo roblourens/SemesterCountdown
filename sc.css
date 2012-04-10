@@ -1,16 +1,7 @@
-body {    background: rgb(206,17,38); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(206,17,38,1) 0%, rgba(119,10,21,1) 100%) no-repeat center center fixed; /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(206,17,38,1)), color-stop(100%,rgba(119,10,21,1))) no-repeat center center fixed; /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%) no-repeat center center fixed; /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%) no-repeat center center fixed; /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%) no-repeat center center fixed; /* IE10+ */
-    background: linear-gradient(top,  rgba(206,17,38,1) 0%,rgba(119,10,21,1) 100%) no-repeat center center fixed; /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce1126', endColorstr='#770a15',GradientType=0 ); /* IE6-9 */
-    color: rgb(242,191,73);
-    font-family: 'Telex', sans-serif;
-    text-shadow: 1px 1px 0px #733;
+body {
     margin: 0px;
     height: 100%;
+    font-family: 'Telex', sans-serif;
 }
 
 #main {
@@ -51,7 +42,7 @@ body {    background: rgb(206,17,38); /* Old browsers */
 }
 .special {
     font-size: 1em;
-    color: rgb(236,209,122);
+    /* color: color3 */
 }
 
 .seconds {
@@ -101,7 +92,7 @@ body {    background: rgb(206,17,38); /* Old browsers */
 }
 
 .detailsButton {
-    color: rgb(236,209,122);
+    /* color: color2 */
     text-decoration: none;
     margin-left: 15px;
     font-size: 1.4em;

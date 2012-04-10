@@ -1,0 +1,9 @@
+{
+    'color1': '#000',
+    'gradBottom': '#000',
+    'color2': '#ffe100',
+    'color3': '#ffef89',
+    'shadowColor': '#555',
+    'timelinePast': '#333',
+    'timelineFuture': '#CCC'
+}

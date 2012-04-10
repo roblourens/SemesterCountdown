@@ -31,24 +31,46 @@ if (isset($_GET['argyle_mode']))
 EOL;
 }
 
-$json = file_get_contents('iastate.json');
-$data = json_decode($json, true);
+$server_name = $_SERVER['SERVER_NAME'];
+//$subdomain = split('.', $server_name)[0];
+$subdomain = 'uni';
+
+$dataPath = 'data/'.$subdomain.'.json';
+$confPath = 'conf/'.$subdomain.'.json';
+if (!file_exists($dataPath))
+{
+    echo "THERE'S NO WORDS THERE: " . $dataPath;
+    exit;
+}
+
+if (!file_exists($confPath))
+{
+    echo "I DON'T KNOW YOU";
+    exit;
+}
+
+$dataJson = file_get_contents($dataPath);
+$confJson = file_get_contents($confPath);
 ?>
 
 <script type='text/javascript' src='DateSpan.js'></script>
 <script type='text/javascript' src='U.js'></script>
+<script type='text/javascript' src='Conf.js'></script>
 <script type='text/javascript'>
-<?php echo "U.init($json);"; ?>
+<?php echo "U.init($dataJson); "; ?>
 
 function doUpdate()
 {
     U.update();
+    Conf.doCssUpdate();
     setSocialH();
 
-    setTimeout(doUpdate, 1000);
+    setTimeout(doUpdate, 500);
 }
 
 // set social container height
+// should call this on window resize, but adding a resize handler breaks this 
+// version of jcanvas for some reason
 function setSocialH()
 {
     var socialH = Math.max(0, $(window).height()-$('.detailsButton').height()-$('#wrapper').height()-$('#timeline').height());
@@ -60,6 +82,7 @@ doUpdate();
 $(document).ready(function() {
     $('#moreDetailsButton').attr('href', 'javascript: U.moreDetails();');
     $('#fewerDetailsButton').attr('href', 'javascript: U.fewerDetails();');
+    <?php echo "Conf.init($confJson);"; ?>
 });
 </script>
 

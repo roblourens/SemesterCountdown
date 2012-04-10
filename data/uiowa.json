@@ -1,0 +1,19 @@
+{
+    "timezone": "-0600",
+
+    "ref": "2012-01-17, 08:00",
+
+    "events": {
+        "semEnd": {
+            "time": "2012-05-11, 17:00",
+            "phrase": "left in the semester.",
+            "ref": "2012-01-17, 08:00"
+        },
+
+        "sprBreak": {
+            "time": "2012-03-09, 17:00",
+            "phrase": "until Spring break.",
+            "name": "Spring Break"
+        }
+    }
+}
