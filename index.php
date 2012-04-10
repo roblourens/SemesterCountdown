@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Semester Countdown</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta property="og:title" content="ISU Semester Countdown" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://iastate.semestercountdown.com" />
@@ -12,7 +13,7 @@
 <script type="text/javascript">
  var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28941284-1']);
-  _gaq.push(['_setDomainName', '.semestercountdown.com']);
+  _gaq.push(['_setDomainName', 'semestercountdown.com']);
   _gaq.push(['_trackPageview']);
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -32,7 +33,7 @@
 date_default_timezone_set("America/Chicago");
 
 $server_name = $_SERVER['SERVER_NAME'];
-$name_parts = explode('\.', $server_name);
+$name_parts = explode('.', $server_name);
 $subdomain = $name_parts[0];
 if ($subdomain == 'lolhost')
 {
