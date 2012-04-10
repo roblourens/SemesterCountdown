@@ -112,6 +112,21 @@ $(document).ready(function() {
 <div id="socialSet">
 <span class='st_fblike_vcount' displayText='Facebook Like'></span>
 <span class='st_twitter_vcount' displayText='Tweet'></span>
+<?php if ($subdomain == 'uiowa')
+echo <<<EOL
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-3515112588362314";
+/* uiowa */
+google_ad_slot = "3116831064";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+EOL;
+?>
 </div>
 </div>
 </div>
