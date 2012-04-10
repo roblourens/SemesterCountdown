@@ -81,7 +81,8 @@ function doUpdate()
 // version of jcanvas for some reason
 function setSocialH()
 {
-    var socialH = Math.max(0, $(window).height()-$('.detailsButton').height()-$('#wrapper').height()-$('#timeline').height());
+    // 1 pixel is added somewhere
+    var socialH = Math.max(0, $(window).height()-$('.detailsButton').height()-$('#wrapper').height()-$('#timeline').height()-1);
     $('#socialContainer').height(socialH);
 }
 
