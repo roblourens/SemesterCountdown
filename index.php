@@ -32,8 +32,8 @@ EOL;
 }
 
 $server_name = $_SERVER['SERVER_NAME'];
-//$subdomain = split('.', $server_name)[0];
-$subdomain = 'uni';
+$name_parts = split('\.', $server_name);
+$subdomain = $name_parts[0];
 
 $dataPath = 'data/'.$subdomain.'.json';
 $confPath = 'conf/'.$subdomain.'.json';
@@ -45,7 +45,7 @@ if (!file_exists($dataPath))
 
 if (!file_exists($confPath))
 {
-    echo "I DON'T KNOW YOU";
+    echo "I DON'T KNOW YOU: ". $confPath;
     exit;
 }
 
