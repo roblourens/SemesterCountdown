@@ -10,6 +10,7 @@ Conf.init = function(confJson)
     this.detailColor = confJson['color3'];      // % and school days
     this.timelinePast = confJson['timelinePast'];
     this.timelineFuture = confJson['timelineFuture'];
+    this.name = confJson['name'];
 
     /* Old browsers */
     $('body').css('background', this.primaryColor);
@@ -32,8 +33,10 @@ Conf.init = function(confJson)
 
     $('body').css('color', this.secondaryColor);
     $('body').css('text-shadow', '1px 1px 0px '+this.shadowColor);
-
     $('.detailsButton').css('color', this.secondaryColor);
+
+    $('#title').html(this.name);
+    $('#title').css('color', this.detailColor);
 }
 
 // stuff that directly affects dynamic elements

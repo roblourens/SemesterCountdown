@@ -5,6 +5,7 @@ U.init = function(d)
     this.data = d;
     this.events = d['events'];
     this.detailLevel = 4;
+    this.isArgyled = false;
 
     // timeline canvas props
     this.w = 800;
@@ -260,4 +261,16 @@ U.zeroFill = function(number, d)
         return number + new Array(d+1).join('0');
 
     return number;
+}
+
+U.argyle = function()
+{
+    var imageName = '';
+    if (this.isArgyled)
+        imageName = 'grid_noise.png';
+    else
+        imageName = 'argyle.png';
+
+    $('#main').css('background-image', 'url('+imageName+')');
+    this.isArgyled = !this.isArgyled;
 }
