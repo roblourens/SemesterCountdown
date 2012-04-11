@@ -1,8 +1,8 @@
 RewriteEngine on
 RewriteBase /
 
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
 RewriteCond %{REQUEST_URI} ^/[^\/.]+/?$
 RewriteRule ^([^/\.]+)/?$ index.php?s=$1 [L]
-
-RewriteCond %{REQUEST_URI} ^/[^\/.]+/
-RewriteRule ^[^/\.]+/(.+)$ $1 [L]

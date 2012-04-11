@@ -1,34 +1,3 @@
-<html>
-<head>
-<title>Semester Countdown</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta property="og:title" content="ISU Semester Countdown" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://iastate.semestercountdown.com" />
-<meta property="og:image" content="http://semestercountdown.com/fbimg.png" />
-<meta property="og:site_name" content="ISU Semester Countdown" />
-<meta property="fb:admins" content="500029869" />
-<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "92b1d824-e709-4b9a-a588-3fec47e291d8"}); </script>
-<script type="text/javascript">
- var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28941284-1']);
-  _gaq.push(['_setDomainName', '.semestercountdown.com']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-</head>
-<body>
-<script type="text/javascript" src="moment.min.js"></script>
-<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="jcanvas.min.js"></script>
-
-<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'></link>
-<link href='sc.css' rel='stylesheet' type='text/css'></link>
 <?php
 date_default_timezone_set("America/Chicago");
 
@@ -43,8 +12,53 @@ if ($subdomain == 'lolhost')
         $subdomain = 'iastate';
 }
 else if ($subdomain == 'semestercountdown')
-    $subdomain = $_GET['s'];
+{
+    if (isset($_GET['s']))
+        $subdomain = $_GET['s'];
+    else
+        header('Location: http://semestercountdown.com/iastate');
+}
+?>
 
+<html>
+<head>
+<title>Semester Countdown</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta property="og:title" content="Semester Countdown" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://semestercountdown.com/<?php echo $subdomain ?>" />
+<meta property="og:site_name" content="Semester Countdown" />
+<meta property="og:image" content="http://semestercountdown.com/fbimgs/<?php echo $subdomain ?>.png" />
+<meta property="fb:admins" content="500029869" />
+<script type="text/javascript">
+ var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28941284-1']);
+  _gaq.push(['_setDomainName', '.semestercountdown.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=298537000208033";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script type="text/javascript" src="moment.min.js"></script>
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="jcanvas.min.js"></script>
+
+<link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'></link>
+<link href='/sc.css' rel='stylesheet' type='text/css'></link>
+
+<?php
 $dataPath = 'data/'.$subdomain.'.json';
 $confPath = 'conf/'.$subdomain.'.json';
 if (!file_exists($dataPath))
@@ -63,9 +77,9 @@ $dataJson = file_get_contents($dataPath);
 $confJson = file_get_contents($confPath);
 ?>
 
-<script type='text/javascript' src='DateSpan.js'></script>
-<script type='text/javascript' src='U.js'></script>
-<script type='text/javascript' src='Conf.js'></script>
+<script type='text/javascript' src='/DateSpan.js'></script>
+<script type='text/javascript' src='/U.js'></script>
+<script type='text/javascript' src='/Conf.js'></script>
 <script type='text/javascript'>
 <?php echo "U.init($dataJson); "; ?>
 
@@ -112,8 +126,9 @@ $(document).ready(function() {
 
 <div id="socialContainer">
 <div id="socialSet">
-<span class='st_fblike_vcount' displayText='Facebook Like'></span>
-<span class='st_twitter_vcount' displayText='Tweet'></span>
+<div class="fb-like" data-href="http://semestercountdown.com/<?php echo $subdomain ?>" data-send="false" data-layout="box_count" data-width="50" data-show-faces="false"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="How many days left in the semester?" data-count="vertical">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <?php if ($subdomain == 'uiowa')
 echo <<<EOL
 <script type="text/javascript"><!--

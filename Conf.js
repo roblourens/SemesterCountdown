@@ -43,4 +43,7 @@ Conf.init = function(confJson)
 Conf.doCssUpdate = function()
 {
     $('.special').css('color', this.detailColor);
+
+    // just gotta be done
+    $('#socialSet iframe').css('bottom', 3);    
 }
