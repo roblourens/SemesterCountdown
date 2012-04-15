@@ -10,7 +10,7 @@ if ($subdomain == 'lolhost')
     if (isset($_GET['s']))
         $subdomain = $_GET['s'];
     else
-        $subdomain = 'iastate';
+        $subdomain = 'frontpage';
 }
 else if ($subdomain == 'semestercountdown')
 {
@@ -18,21 +18,29 @@ else if ($subdomain == 'semestercountdown')
     if (isset($_GET['s']))
         $subdomain = $_GET['s'];
     else
-        header('Location: http://semestercountdown.com/iastate');
+        $subdomain = 'frontpage';
 }
 
-$abbrevFile = 'conf/'.$subdomain.'.json';
-$f = fopen($abbrevFile, 'r');
-$abbrevJson = fread($f, filesize($abbrevFile));
-fclose($f);
-$conf = json_decode($abbrevJson);
-$abbrev = $conf->abbrev;
+if ($subdomain != 'frontpage')
+{
+    $abbrevFile = 'conf/'.$subdomain.'.json';
+    $f = fopen($abbrevFile, 'r');
+    $abbrevJson = fread($f, filesize($abbrevFile));
+    fclose($f);
+    $conf = json_decode($abbrevJson, true);
+    $abbrev = $conf['abbrev'];
+}
+else
+{
+    include('frontpage.php');
+    exit(0);
+}
 ?>
 
 <html>
 <head>
-<title>Semester Countdown</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title><?php echo $abbrev." Semester Countdown";?></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta property="og:title" content="<?php echo $abbrev. ' Semester Countdown'?>" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://semestercountdown.com/<?php echo $subdomain ?>" />
@@ -153,6 +161,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 EOL;
 ?>
 </div>
+<a id='frontpageLink' href='/'>Other schools?</a>
 </div>
 </div>
 

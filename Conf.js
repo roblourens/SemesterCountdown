@@ -37,6 +37,9 @@ Conf.init = function(confJson)
 
     $('#title').html(this.name);
     $('#title').css('color', this.detailColor);
+
+    $('#frontpageLink').css('color', this.secondaryColor);
+    $('#frontpageLink:visited').css('color', this.secondaryColor);
 }
 
 // stuff that directly affects dynamic elements
@@ -46,4 +49,5 @@ Conf.doCssUpdate = function()
 
     // just gotta be done
     $('#socialSet iframe').css('bottom', 3);    
+    $('#frontpageLink').css('bottom', 10);
 }

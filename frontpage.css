@@ -1,0 +1,43 @@
+body {
+    font-family: 'Telex', sans-serif;
+    background: #EEE;
+    margin: 0;
+}
+
+h2, h3, .schoolRow {
+    text-align: center;
+}
+
+#topContainer {
+    display: table;
+    height: 70%;
+    #position: relative;
+    overflow: hidden;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#midContainer {
+    #position: absolute;
+    #top: 50%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#wrapper {
+    margin-top: 0px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #DDD;
+    #position: relative;
+    #top: -50%;
+}
+
+.schoolRow {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+}

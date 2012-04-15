@@ -122,3 +122,12 @@ body {
 .socialItem {
     float: left;
 }
+
+#frontpageLink {
+    text-decoration: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 10px;
+    padding-right: 20px;
+}
