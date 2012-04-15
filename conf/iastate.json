@@ -1,10 +1,11 @@
 {
-    'name': 'Iowa State University',
-    'color1': '#ce1126',
-    'gradBottom': '#770a15',
-    'color2': '#f2bf49',
-    'color3': '#ecd17a',
-    'shadowColor': '#733',
-    'timelinePast': '#323232',
-    'timelineFuture': '#000'
+    "name": "Iowa State University",
+    "abbrev": "ISU",
+    "color1": "#ce1126",
+    "gradBottom": "#770a15",
+    "color2": "#f2bf49",
+    "color3": "#ecd17a",
+    "shadowColor": "#733",
+    "timelinePast": "#323232",
+    "timelineFuture": "#000"
 }

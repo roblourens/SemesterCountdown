@@ -20,16 +20,22 @@ else if ($subdomain == 'semestercountdown')
     else
         header('Location: http://semestercountdown.com/iastate');
 }
+
+$abbrevFile = 'conf/'.$subdomain.'.json';
+$f = fopen($abbrevFile, 'r');
+$abbrevJson = fread($f, filesize($abbrevFile));
+fclose($f);
+$conf = json_decode($abbrevJson);
+$abbrev = $conf->abbrev;
 ?>
 
 <html>
 <head>
 <title>Semester Countdown</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta property="og:title" content="Semester Countdown" />
+<meta property="og:title" content="<?php echo $abbrev. ' Semester Countdown'?>" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://semestercountdown.com/<?php echo $subdomain ?>" />
-<meta property="og:site_name" content="Semester Countdown" />
 <meta property="og:image" content="http://semestercountdown.com/fbimgs/<?php echo $subdomain ?>.png" />
 <meta property="fb:admins" content="500029869" />
 <script type="text/javascript">
