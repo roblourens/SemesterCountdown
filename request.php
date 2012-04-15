@@ -1,11 +1,3 @@
-<?php
-$indexFile = 'data/index.json';
-$f = fopen($indexFile, 'r');
-$indexJson = fread($f, filesize($indexFile));
-fclose($f);
-$index = json_decode($indexJson, true);
-?>
-
 <html>
 <head>
 <title>Semester Countdown</title>
@@ -24,28 +16,42 @@ $index = json_decode($indexJson, true);
 </script>
 <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'></link>
 <link href='frontpage.css' rel='stylesheet' type='text/css'></link>
+<script type='text/javascript'>
+function sendRequest()
+{
+    var url = $('#scheduleUrl').val().replace(/ /g, '');
+    var fromEmail = $('#fromEmail').val().replace(/ /g, '');
+
+    if (url == '')
+        alert('Enter the URL for your school\'s schedule page');
+    else
+    {
+        var data = {
+            'url': url, 
+            'fromEmail': fromEmail
+        };
+        $.post('handleRequest.php', data, function(data) {
+                alert(data);
+        });
+    }
+    return false;
+}
+</script>
 </head>
 <body>
 <div id="topContainer">
 <div id="midContainer">
 <div id="wrapper">
-<h2>Semester Countdown</h2>
-<h3>Is it over yet?</h3>
+<a href='/' style="text-decoration: none; color: black"><h2>Semester Countdown</h2></a>
+<h3>Request a countdown for your school</h3>
 <div id="content">
-<?php
-foreach ($index as $schoolIndex)
-{
-    $schoolFile = 'conf/'.$schoolIndex.'.json';
-    $f = fopen($schoolFile, 'r');
-    $schoolJson = fread($f, filesize($schoolFile));
-    fclose($f);
-    $school = json_decode($schoolJson, true);
-
-    $schoolName = $school['name'];
-    echo "<div class='schoolRow'><a href='/$schoolIndex'>$schoolName</a></div>";
-}
-?>
-<div id="request"><a href='request.php' id="requestLink">Request your school</a></div>
+<form action="javascript: sendRequest();">
+URL of school schedule:<br />
+<input id="scheduleUrl"></input><br />
+(Optional) Your email address, if you want an email when your school's countdown is up<br />
+<input id="fromEmail"></input><br />
+<input id="submitBtn" type="submit"></input>
+</form>
 </div>
 </div>
 </div>

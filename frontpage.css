@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-h2, h3, .schoolRow {
+h2, h3, #content {
     text-align: center;
 }
 
@@ -40,4 +40,19 @@ h2, h3, .schoolRow {
 
 a {
     text-decoration: none;
+}
+
+#request {
+    margin-top: 40px;
+    font-size: .8em;
+}
+
+#scheduleUrl, #fromEmail {
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#fromEmail {
+    width: 170px;
 }
