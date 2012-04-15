@@ -6,6 +6,7 @@ $name_parts = explode('.', $server_name);
 $subdomain = $name_parts[0];
 if ($subdomain == 'lolhost')
 {
+    $resBase = "/~rob/SemesterCountdown/";
     if (isset($_GET['s']))
         $subdomain = $_GET['s'];
     else
@@ -13,6 +14,7 @@ if ($subdomain == 'lolhost')
 }
 else if ($subdomain == 'semestercountdown')
 {
+    $resBase = "/";
     if (isset($_GET['s']))
         $subdomain = $_GET['s'];
     else
@@ -51,12 +53,12 @@ else if ($subdomain == 'semestercountdown')
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=298537000208033";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<script type="text/javascript" src="moment.min.js"></script>
-<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="jcanvas.min.js"></script>
+<script type="text/javascript" src="<?php echo $resBase.'moment.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo $resBase.'jquery-1.7.1.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo $resBase.'jcanvas.min.js'?>"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'></link>
-<link href='/sc.css' rel='stylesheet' type='text/css'></link>
+<link href="<?php echo $resBase.'sc.css'?>" rel='stylesheet' type='text/css'></link>
 
 <?php
 $dataPath = 'data/'.$subdomain.'.json';
@@ -77,9 +79,9 @@ $dataJson = file_get_contents($dataPath);
 $confJson = file_get_contents($confPath);
 ?>
 
-<script type='text/javascript' src='/DateSpan.js'></script>
-<script type='text/javascript' src='/U.js'></script>
-<script type='text/javascript' src='/Conf.js'></script>
+<script type='text/javascript' src="<?php echo $resBase.'DateSpan.js'?>"></script>
+<script type='text/javascript' src="<?php echo $resBase.'U.js'?>"></script>
+<script type='text/javascript' src="<?php echo $resBase.'Conf.js'?>"></script>
 <script type='text/javascript'>
 <?php echo "U.init($dataJson); "; ?>
 
