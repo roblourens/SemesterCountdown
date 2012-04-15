@@ -1,25 +1,28 @@
 <?php
 date_default_timezone_set("America/Chicago");
 
+function schoolExists($school)
+{
+    $indexFile = 'data/index.json';
+    $f = fopen($indexFile, 'r');
+    $indexJson = fread($f, filesize($indexFile));
+    fclose($f);
+    $index = json_decode($indexJson, true);
+    return in_array($school, $index);
+}
+
 $server_name = $_SERVER['SERVER_NAME'];
 $name_parts = explode('.', $server_name);
 $subdomain = $name_parts[0];
 if ($subdomain == 'lolhost')
-{
     $resBase = "/~rob/SemesterCountdown/";
-    if (isset($_GET['s']))
-        $subdomain = $_GET['s'];
-    else
-        $subdomain = 'frontpage';
-}
 else if ($subdomain == 'semestercountdown')
-{
     $resBase = "/";
-    if (isset($_GET['s']))
-        $subdomain = $_GET['s'];
-    else
-        $subdomain = 'frontpage';
-}
+
+if (isset($_GET['s']) && schoolExists($_GET['s']))
+    $subdomain = $_GET['s'];
+else
+    $subdomain = 'frontpage';
 
 if ($subdomain != 'frontpage')
 {
@@ -77,18 +80,6 @@ else
 <?php
 $dataPath = 'data/'.$subdomain.'.json';
 $confPath = 'conf/'.$subdomain.'.json';
-if (!file_exists($dataPath))
-{
-    echo "THERE'S NO WORDS THERE: " . $dataPath;
-    exit;
-}
-
-if (!file_exists($confPath))
-{
-    echo "I DON'T KNOW YOU: ". $confPath;
-    exit;
-}
-
 $dataJson = file_get_contents($dataPath);
 $confJson = file_get_contents($confPath);
 ?>
