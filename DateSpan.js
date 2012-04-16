@@ -22,10 +22,10 @@ DateSpan.timeInDataInterval = function(start, end)
 
 DateSpan.timeInInterval = function(start, end)
 {
-    var days = Math.floor(end.diff(start, 'days', true));
-    var hours = Math.floor(end.diff(start, 'hours', true) % 24);
-    var minutes = Math.floor(end.diff(start, 'minutes', true) % 60);
-    var seconds = Math.floor(end.diff(start, 'seconds', true) % 60);
+    var days = this.roundTowardsZero(end.diff(start, 'days', true));
+    var hours = this.roundTowardsZero(end.diff(start, 'hours', true) % 24);
+    var minutes = this.roundTowardsZero(end.diff(start, 'minutes', true) % 60);
+    var seconds = this.roundTowardsZero(end.diff(start, 'seconds', true) % 60);
 
     return {'d': days,
             'h': hours,
@@ -102,4 +102,12 @@ DateSpan.roundedDays = function(interval)
         return interval['d'] + 1;
     else
         return interval['d'];
+}
+
+DateSpan.roundTowardsZero = function(t)
+{
+    if (t > 0)
+        return Math.floor(t);
+    else
+        return Math.ceil(t);
 }
