@@ -2,8 +2,6 @@ var U = {};
 
 U.init = function(d)
 {
-    this.data = d;
-    this.events = d['events'];
     this.detailLevel = 4;
     this.isArgyled = false;
 
@@ -12,9 +10,11 @@ U.init = function(d)
     this.h = 75 ;
     this.tickH = 20;
     this.margin = 5;
-    this.dateFmtStr = "MMM D, YYYY";
+    this.timelineEndDateFmtStr = "MMM D, YYYY";
+    this.timelineMidDateFmtStr = "MMM D";
 
     DateSpan.init(d['timezone']);
+    this.semester = DateSpan.priceIsRightSem(d['semesters']);
 }
 
 U.moreDetails = function()
@@ -35,17 +35,17 @@ U.update = function()
 
     var ctnt = "<div class='tableDiv'>";
     var firstT;
-    for (eventName in this.events)
+    $.each(this.semester, function(eventName, e)
     {
-        // the event object
-        var e = this.events[eventName];
+        if (eventName == 'ref')
+            return;
 
         // the days, hours, minutes, seconds until the time
         var t = DateSpan.timeTilData(e['time']);
 
         // if the time finished more than 1 day ago, don't output the event
         if (t['d'] <= -1)
-            continue;
+            return;
         else
         {
             for (k in t)
@@ -60,7 +60,7 @@ U.update = function()
         // There are # days ...
         var roundedDays = DateSpan.roundedDays(t);
         ctnt += "<div class='row main'>";
-        ctnt += '<div class="l">There '+this.isAre(roundedDays)+' <span class="days">'+roundedDays+'</span></div>';
+        ctnt += '<div class="l">There '+U.isAre(roundedDays)+' <span class="days">'+roundedDays+'</span></div>';
 
         ctnt += "<div class='r'>";
         // /total
@@ -71,7 +71,7 @@ U.update = function()
         }
 
         // # days phrase
-        ctnt += this.pluralize(roundedDays, 'day')+' '+e['phrase']+'</div>';
+        ctnt += U.pluralize(roundedDays, 'day')+' '+e['phrase']+'</div>';
         ctnt += '</div>';
 
         $.each(['day', 'hour', 'minute', 'second'], function(i, v) {
@@ -91,10 +91,10 @@ U.update = function()
             var endTime = DateSpan.dataToTime(e['time']);
             var now = moment();
 
-            var complete = now.diff(refTime, 'seconds', true);
-            var total = endTime.diff(refTime, 'seconds', true);
+            var complete = DateSpan.diff(refTime, now);
+            var total = DateSpan.diff(refTime, endTime);
 
-            var percStr = this.zeroFill(Math.floor(100000*complete/total)/1000, 3);
+            var percStr = U.zeroFill(Math.floor(100000*complete/total)/1000, 3);
 
             ctnt += '<div class="row special"><div class="num l">'+percStr+'</div>';
             ctnt += '<div class="r">% complete.</div></div>';
@@ -112,7 +112,7 @@ U.update = function()
             firstT = t;
             first = false;
         }
-    }
+    });
 
     $('#wrapper').html(ctnt);
 
@@ -137,8 +137,8 @@ U.update = function()
         strokeStyle: Conf.timelineFuture
     });
 
-    var refDate = DateSpan.dataToTime(this.data['ref']);
-    var refDateStr = refDate.format(this.dateFmtStr);
+    var refDate = DateSpan.dataToTime(this.semester['ref']);
+    var refDateStr = this.format(refDate, this.timelineEndDateFmtStr);
 
     // write ref event time
     this.drawText({
@@ -148,17 +148,17 @@ U.update = function()
     });
 
     // find the last event
-    var lastEvent = this.events[Object.keys(this.events)[0]];
-    for (eventName in this.events)
+    var lastEvent = this.semester[Object.keys(this.semester)[0]];
+    for (i in this.semester)
     {
-        var e = this.events[eventName];
+        var e = this.semester[i];
         var date = DateSpan.dataToTime(e['time']);
         if (date > DateSpan.dataToTime(lastEvent['time']))
             lastEvent = e;
     }
 
     // draw the last event time
-    var endDateStr = DateSpan.dataToTime(lastEvent['time']).format(this.dateFmtStr);
+    var endDateStr = this.format(DateSpan.dataToTime(lastEvent['time']), this.timelineEndDateFmtStr);
     this.drawText({
         x: this.w-this.margin, y: this.h/2+this.tickH/2,
         text: endDateStr,
@@ -166,22 +166,25 @@ U.update = function()
     });
 
     // draw other events
-    for (eventName in this.events)
+    $.each(this.semester, function(eventName, e)
     {
-        var e = this.events[eventName];
+        if (eventName == 'ref')
+            return;
+
         if (e != lastEvent)
         {
             var isPast = false;
             if (DateSpan.dataToTime(e['time']) < moment())
                 isPast = true;
 
-            this.drawEvent(e, refDate, lastEvent, isPast);
+            U.drawEvent(e, refDate, lastEvent, isPast);
         }
-    }
+    });
 
     // draw now dot
-    var totalSecs = refDate.diff(DateSpan.dataToTime(lastEvent['time']), 'seconds');
-    var nowPosPercent = refDate.diff(moment(), 'seconds')/totalSecs;
+    var totalSecs = DateSpan.diff(refDate, DateSpan.dataToTime(lastEvent['time']));
+    var nowPosPercent = DateSpan.diff(refDate, moment())/totalSecs;
+
     // draw past line
     this.drawLine({
         x1: this.margin, y1: this.h/2,
@@ -198,8 +201,8 @@ U.update = function()
 U.drawEvent = function(e, refDate, lastEvent, isPast)
 {
     // position of event e between refDate and lastEvent
-    var totalSecs = refDate.diff(DateSpan.dataToTime(lastEvent['time']), 'seconds');
-    var secsToE = refDate.diff(DateSpan.dataToTime(e['time']), 'seconds');
+    var totalSecs = DateSpan.diff(DateSpan.dataToTime(lastEvent['time']), refDate);
+    var secsToE = DateSpan.diff(DateSpan.dataToTime(e['time']), refDate);
     var posPercent = secsToE/totalSecs;
     var args = {
         x1: this.w*posPercent+.5, y1: this.h/2-this.tickH/2,
@@ -213,7 +216,7 @@ U.drawEvent = function(e, refDate, lastEvent, isPast)
     this.drawLine(args);
 
     // draw text
-    var eStr = e['name'] + ", " + DateSpan.dataToTime(e['time']).format(this.dateFmtStr);
+    var eStr = e['name'] + ", " + this.format(DateSpan.dataToTime(e['time']), this.timelineMidDateFmtStr);
     this.drawText({
         x: this.w*posPercent, y: this.h/2-this.tickH/2,
         align: 'center', baseline: 'bottom',
@@ -273,4 +276,13 @@ U.argyle = function()
 
     $('#main').css('background-image', 'url('+imageName+')');
     this.isArgyled = !this.isArgyled;
+}
+
+U.format = function(d, formatStr)
+{
+    var u = moment(d);
+    u.utc();
+    u.add('minutes', d.zone());
+
+    return u.format(formatStr);
 }

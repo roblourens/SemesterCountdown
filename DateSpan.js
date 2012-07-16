@@ -22,15 +22,27 @@ DateSpan.timeInDataInterval = function(start, end)
 
 DateSpan.timeInInterval = function(start, end)
 {
-    var days = this.roundTowardsZero(end.diff(start, 'days', true));
-    var hours = this.roundTowardsZero(end.diff(start, 'hours', true) % 24);
-    var minutes = this.roundTowardsZero(end.diff(start, 'minutes', true) % 60);
-    var seconds = this.roundTowardsZero(end.diff(start, 'seconds', true) % 60);
+    var diff = this.diff(start, end);
+    var days = this.roundTowardsZero(diff/1000/60/60/24);
+    var hours = this.roundTowardsZero(diff/1000/60/60 % 24);
+    var minutes = this.roundTowardsZero(diff/1000/60 % 60);
+    var seconds = this.roundTowardsZero(diff/1000 % 60);
 
     return {'d': days,
             'h': hours,
             'm': minutes,
             's': seconds};
+}
+
+DateSpan.diff = function(start, end, value)
+{
+    start = moment(start);
+    end = moment(end);
+
+    // do the diff in UTC mode. Otherwise it will compare times disregarding timezones
+    start.utc();
+    end.utc();
+    return end.diff(start, value);
 }
 
 DateSpan.timeTilTime = function(t)
@@ -47,6 +59,26 @@ DateSpan.dataToTime = function(data)
         time.subtract('hours', 1);
 
     return time;
+}
+
+// Returns the semester with closest ref, without going over
+DateSpan.priceIsRightSem = function(semesters)
+{
+    var bestDateDiff = Infinity;
+    var bestSemester;
+    for (var i in semesters)
+    {
+        var s = semesters[i];
+        var sDate = this.dataToTime(s['ref']);
+        var dateDiff = moment() - sDate;
+        if (dateDiff > 0 && dateDiff < bestDateDiff)
+        {
+            bestDateDiff = dateDiff;
+            bestSemester = s;
+        }
+    }
+
+    return bestSemester;
 }
 
 DateSpan.timeTilData = function(data)
