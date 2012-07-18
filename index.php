@@ -71,7 +71,7 @@ else
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript" src="<?php echo $resBase.'moment.min.js'?>"></script>
-<script type="text/javascript" src="<?php echo $resBase.'jquery-1.7.1.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo $resBase.'jquery-1.7.2.min.js'?>"></script>
 <script type="text/javascript" src="<?php echo $resBase.'jcanvas.min.js'?>"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'></link>
