@@ -23,9 +23,15 @@ $index = json_decode($indexJson, true);
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
-$(document).ready(function() {
+$(document).ready(function() 
+{
+    // set it back to default on page navigate back, e.g.
+    $('#schoolSelect').attr('value', 'Schools');
+
     $('#schoolSelect').change(function() {
-        window.location = "/"+$(this).attr('value');
+        var selectedSchool = $(this).attr('value');
+        if (selectedSchool != 'Schools')
+            window.location = "/"+selectedSchool;
     });
 });
 </script>
