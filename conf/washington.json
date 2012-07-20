@@ -1,0 +1,12 @@
+{
+    "id": "washington",
+    "name": "University of Washington",
+    "abbrev": "UW",
+    "color1": "#39275b",
+    "gradBottom": "#30214D",
+    "color2": "#e8d3a2",
+    "color3": "#d8d9da",
+    "shadowColor": "#222",
+    "timelinePast": "#000",
+    "timelineFuture": "#555"
+}
