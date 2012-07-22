@@ -1,0 +1,12 @@
+{
+    "id": "augustana",
+    "name": "Augustana College",
+    "abbrev": "AC",
+    "color1": "#32558A",
+    "gradBottom": "#1c304d",
+    "color2": "#F4DC35",
+    "color3": "#f7e56e",
+    "shadowColor": "#17283f",
+    "timelinePast": "#222",
+    "timelineFuture": "#3b64a1"
+}
