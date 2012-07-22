@@ -215,6 +215,8 @@ U.drawEvent = function(e, refDate, lastEvent, isPast)
 
     if (isPast)
         args['strokeStyle'] = Conf.timelinePast;
+    else
+        args['strokeStyle'] = Conf.timelineFuture;
 
     // draw half-tick
     this.drawLine(args);
