@@ -1,0 +1,12 @@
+{
+    "id": "missouri",
+    "name": "University of Missouri",
+    "abbrev": "Mizzou",
+    "color1": "#F1B82D",
+    "gradBottom": "#ce9d26",
+    "color2": "#000",
+    "color3": "#36454F",
+    "shadowColor": "#333",
+    "timelinePast": "#9c8244",
+    "timelineFuture": "#CCC"
+}
