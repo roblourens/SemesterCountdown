@@ -14,7 +14,7 @@ U.init = function(d)
     this.timelineMidDateFmtStr = "MMM D";
 
     DateSpan.init(d['timezone']);
-    this.semester = DateSpan.priceIsRightSem(d['semesters']);
+    this.d = d;
 }
 
 U.moreDetails = function()
@@ -31,6 +31,10 @@ U.fewerDetails = function()
 
 U.update = function()
 {
+    this.semester = DateSpan.priceIsRightSem(this.d['semesters']);
+    if (!this.semester)
+        return;
+
     var first = true;
 
     var ctnt = "<div class='tableDiv'>";
