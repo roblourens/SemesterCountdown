@@ -32,17 +32,22 @@ U.fewerDetails = function()
 U.update = function()
 {
     this.semester = DateSpan.priceIsRightSem(this.d['semesters']);
+
     if (!this.semester)
         return;
 
     var first = true;
 
     var ctnt = "<div class='tableDiv'>";
-    var firstT;
+    var ref = this.semester['ref'];
     $.each(this.semester, function(eventName, e)
     {
         if (eventName == 'ref')
             return;
+
+        // replace the event ref placeholder
+        if (e['ref'] && e['ref'] == '@ref')
+            e['ref'] = ref;
 
         // the days, hours, minutes, seconds until the time
         var t = DateSpan.timeTilData(e['time']);
@@ -111,11 +116,7 @@ U.update = function()
 
         ctnt += '</div>';
 
-        if (first)
-        {
-            firstT = t;
-            first = false;
-        }
+        first = false;
     });
 
     $('#wrapper').html(ctnt);
