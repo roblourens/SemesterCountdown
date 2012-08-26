@@ -136,12 +136,14 @@ $(document).ready(function() {
 <div class="fb-like" data-href="http://semestercountdown.com/<?php echo $subdomain ?>" data-send="false" data-layout="box_count" data-width="50" data-show-faces="false"></div>
 <a href="https://twitter.com/share" class="twitter-share-button" data-text="How many days left in the semester? http://semestercountdown.com/<?php echo $subdomain ?>" data-count="vertical">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<?php if ($subdomain == 'uiowa')
-echo <<<EOL
+<?php if ($subdomain != 'iastate')
+{
+    $adSlot = $conf['adSlot'];
+    echo <<<EOL
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-3515112588362314";
 /* uiowa */
-google_ad_slot = "3116831064";
+google_ad_slot = "$adSlot";
 google_ad_width = 468;
 google_ad_height = 60;
 //-->
@@ -150,6 +152,7 @@ google_ad_height = 60;
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 EOL;
+}
 ?>
 </div>
 <a id='frontpageLink' href='/'>Other schools?</a>

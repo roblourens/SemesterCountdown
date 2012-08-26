@@ -7,6 +7,7 @@
     "color2": "#F4DC35",
     "color3": "#f7e56e",
     "shadowColor": "#17283f",
-    "timelinePast": "#222",
-    "timelineFuture": "#3b64a1"
+    "timelinePast": "#3b64a1",
+    "timelineFuture": "#111",
+    "adSlot": "1005989952"
 }

@@ -113,7 +113,6 @@ U.update = function()
         var schoolDays = DateSpan.schoolDaysTilData(e['time']);
         ctnt += '<div class="row special"><div class="l num">'+schoolDays+'</div>';
         ctnt += '<div class="r">school days.</div></div>';
-
         ctnt += '</div>';
 
         first = false;
@@ -210,8 +209,8 @@ U.drawEvent = function(e, refDate, lastEvent, isPast)
     var secsToE = DateSpan.diff(DateSpan.dataToTime(e['time']), refDate);
     var posPercent = secsToE/totalSecs;
     var args = {
-        x1: this.w*posPercent+.5, y1: this.h/2-this.tickH/2,
-        x2: this.w*posPercent+.5, y2: this.h/2
+        x1: this.w*posPercent, y1: this.h/2-this.tickH/2,
+        x2: this.w*posPercent, y2: this.h/2
     };
 
     if (isPast)
@@ -289,7 +288,6 @@ U.format = function(d, formatStr)
 {
     var u = moment(d);
     u.utc();
-    u.add('minutes', d.zone());
 
     return u.format(formatStr);
 }

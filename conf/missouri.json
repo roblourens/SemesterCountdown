@@ -6,7 +6,8 @@
     "gradBottom": "#ce9d26",
     "color2": "#000",
     "color3": "#36454F",
-    "shadowColor": "#333",
+    "shadowColor": "#888",
     "timelinePast": "#9c8244",
-    "timelineFuture": "#CCC"
+    "timelineFuture": "#CCC",
+    "adSlot": "43042302396"
 }
